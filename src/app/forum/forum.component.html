@@ -1,0 +1,14 @@
+<br>
+<form>
+  <label>Name:</label><input type="text" name="userName" placeholder="Put your name here" [(ngModel)]="userN">
+  <br>
+  <input type="text" name="inputMessage" placeholder="Type something" [(ngModel)]="newMessage">
+  <button md-icon-button (click)="sendMessage()"><md-icon>message</md-icon></button>
+</form>
+<md-card *ngFor="let msg of (messages | async)" [routerLink]="msg.$key">
+  {{msg.user}}: &nbsp; {{msg.message}}
+  <br>
+  <span class="stupid-tolga">
+    {{msg.timeStamp}}
+  </span>
+</md-card>
