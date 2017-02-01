@@ -17,7 +17,7 @@ export class MessageComponent implements OnInit {
   ngOnInit() {
     this.id = this.rt.snapshot.params['id'];
     this.fS.getMessage(this.id)
-      //.first()
+      .first()
       .subscribe(msg => this.message = msg);
   }
 
