@@ -25,7 +25,7 @@ export class ForumService {
 
   addMessage(msg: string, date: Date) {
     if (!msg || !this.userService.user.uid) {
-      alert("Must be signed in and typed somehting.")
+      alert("Must be signed in and typed something.")
       return;
     }
     const messages = this.af.database.list("messages");
