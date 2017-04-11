@@ -8,15 +8,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent implements OnInit {
-  id: string;
+  idKey: string;
   message: any;
   newMessage: string;
 
   constructor(private rt: ActivatedRoute, private router: Router, private fS: ForumService) { }
 
   ngOnInit() {
-    this.id = this.rt.snapshot.params['id'];
-    this.fS.getMessage(this.id)
+    this.idKey = this.rt.snapshot.params['id'];
+    console.log("incoming ID:",this.idKey);
+    
+    this.fS.getMessage(this.idKey)
       .first()
       .subscribe(msg => this.message = msg);
   }
@@ -25,11 +27,12 @@ export class MessageComponent implements OnInit {
     if (!this.newMessage) {
       return;
     }
-    this.fS.updateMessage(this.id, this.newMessage);
+    this.fS.updateMessage(this.idKey, this.newMessage);
+    this.router.navigate(["/forum"]);
   }
 
   deleteThisMessage() {
-    this.fS.deleteMessage(this.id);
+    this.fS.deleteMessage(this.idKey);
     this.router.navigate(["/forum"]);
   }
 }

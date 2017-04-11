@@ -28,7 +28,7 @@ export class ForumComponent implements OnInit {
   sendMessage() {
     this.dateTimestamp = new Date();
     console.log(this.dateTimestamp);    
-    this.fs.addMessage(this.newMessage, this.userN, this.dateTimestamp);
+    this.fs.addMessage(this.newMessage, this.dateTimestamp);
     this.newMessage = '';
   }
 

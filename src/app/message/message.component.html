@@ -3,6 +3,7 @@
         <tr>
             <td><button md-icon-button (click)="deleteThisMessage()"><md-icon>delete</md-icon></button></td>
             <td>
+                <img *ngIf="message?.uid" class="userimg" src="{{message?.photoURL}}">
                 <label>Name:</label> &nbsp; {{message?.user}}
                 <br>
                 <label>Message:</label> &nbsp;{{message?.message}}

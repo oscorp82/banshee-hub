@@ -1,8 +1,34 @@
-<h1 routerLink="">
-  <md-icon>polymer</md-icon>
-  {{title}}
-</h1>
+<table>
+  <tr>
+    <td>
+      <h1 routerLink="">
+        <md-icon>polymer</md-icon>
+        {{title}}
+      </h1>
+    </td>
+    <td><img *ngIf="user.uid" class="userimg" src="{{user.photoURL}}">{{user.name}}</td>
+  </tr>
+</table>
 <nav>
-  <button md-button routerLink="/forum">Forum</button>
+  <table>
+    <tr>
+      <td>
+        <button md-button routerLink="/forum">
+          Forum
+        </button></td>
+      <td>
+        <div *ngIf="!user.uid">
+          <button md-button (click)="login()">
+            Login
+          </button>
+        </div>
+        <div *ngIf="user.uid">
+          <button md-button (click)="logout()">
+            Logout
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
 </nav>
 <router-outlet></router-outlet>

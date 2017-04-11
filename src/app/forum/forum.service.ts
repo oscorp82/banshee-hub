@@ -1,11 +1,14 @@
+import { UserService } from './../shared/user.service';
 import { AngularFire } from 'angularfire2';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from './../shared/user';
 
 @Injectable()
 export class ForumService {
 
-  constructor(private af: AngularFire) { }
+  constructor(private af: AngularFire, private userService: UserService) { }
+
   getMessages() {
     return this.af.database.list("messages")
       .map(msgs => {msgs.reverse()
@@ -20,20 +23,25 @@ export class ForumService {
     return this.af.database.object(`messages/${msgId}`);
   }
 
-  addMessage(msg: string, usr: string, date: Date) {
-    if (!msg || !usr) {
+  addMessage(msg: string, date: Date) {
+    if (!msg || !this.userService.user.uid) {
+      alert("Must be signed in and typed somehting.")
       return;
     }
     const messages = this.af.database.list("messages");
     messages.push({
+      uid: this.userService.user.uid,
       message: msg,
-      user: usr,
-      timeStamp: date.toISOString()
+      user: this.userService.user.name,
+      timeStamp: date.toISOString(),
+      photoURL: this.userService.user.photoURL,
     });
     console.log('new message:', JSON.stringify({
+      uid: this.userService.user.uid,
       message: msg,
-      user: usr,
-      timeStamp: date
+      user: this.userService.user.name,
+      timeStamp: date.toISOString(),
+      photoURL: this.userService.user.photoURL,
     }));
     
   }
